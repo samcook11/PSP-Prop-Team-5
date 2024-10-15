@@ -1,0 +1,62 @@
+# -*- coding: utf-8 -*-
+"""
+Spyder Editor
+
+This is an improved version of the original script file
+for calculating mass flow rate and solving for cross-sectional area (A).
+"""
+
+import math
+
+# Constants and given values
+C = 0.62  # Coefficient
+p_1 = 1378.93193 *1000 # Pressure ( kPa)
+PO = 18.104  # Density of Oxygen (kg/m^3 or other consistent unit)
+PH = 1.1315  # Density of Hydrogen (kg/m^3 or other consistent unit)
+T_t = 1818.97  # Temperature in Kelvin 
+
+# Specific Heat Ratios
+yO = 1.4  # Specific Heat Ratio of Oxygen
+yH = 1.4  # Specific Heat Ratio of Hydrogen
+
+# Specific Heat Capacities
+CpO = 0.916  # Specific heat capacity for oxygen
+CpH = 14.25  # Specific heat capacity for hydrogen
+R = 594  # Universal gas constant
+P_t = 101.7 #kPa
+# Derived Specific Heat Capacities at constant volume
+CvO = CpO - R
+CvH = CpH - R
+
+# Calculate specific heat ratios (gamma) for oxygen and hydrogen
+yC_O = CpO / CvO
+yC_H = CpH / CvH
+
+# Print specific heat capacities and ratios
+print("Specific heat capacity at constant volume for oxygen (CvO):", CvO)
+print("Specific heat capacity at constant volume for hydrogen (CvH):", CvH)
+print(f"Specific Heat Ratio for Oxygen (yO): {yC_O}")
+print(f"Specific Heat Ratio for Hydrogen (yH): {yC_H}")
+
+# Mass flow rates for Oxygen and Hydrogen (example values, replace with actual values)
+q_m_tot = 0.003
+print(f"Mass flow rate total: {q_m_tot}")
+
+# Solving for cross-sectional area A for oxygen and hydrogen
+A_O2 = q_m_tot / (C * math.sqrt((yO * PO * p_1) * (2 / (yO + 1)) ** ((yO + 1) / (yO - 1))))
+A_H2 = q_m_tot / (C * math.sqrt((yH * PH * p_1) * (2 / (yH + 1)) ** ((yH + 1) / (yH - 1))))
+
+# Output the cross-sectional areas
+print(f"Cross-sectional area for Oxygen (A_O2): {A_O2}")
+print(f"Cross-sectional area for Hydrogen (A_H2): {A_H2}")
+
+# You can adjust the mass flow rate and other parameters to suit your specific case
+
+print
+
+k = 0.63 # Empirical constant specific to the orifice design
+
+
+
+
+
