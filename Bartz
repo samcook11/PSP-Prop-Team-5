@@ -1,0 +1,42 @@
+# Constants and parameters (in metric units)
+y = 1.28  # Ratio of specific heats
+C_p = 6.2966  # Specific heat at constant pressure (KJ/kg·K)
+C_star = 2545.3  # Characteristic velocity (m/s)
+M = 1  # Mach number
+g = 9.81  # Gravitational acceleration (m/s²)
+
+# Prandtl number calculation
+P_r_calculated = (4 * y) / ((9 * y) - 5)
+print(f"Prandtl number (calculated): {P_r_calculated:.6f}")
+
+P_r_fixed = 0.7852760736196319  # Fixed Prandtl number value
+print(f"Prandtl number (fixed): {P_r_fixed:.6f}")
+
+m_bar = 5.33  # Molecular weight (g/mol)
+w = 0.6  # Viscosity exponent
+
+# Throat area and radius of curvature
+d_star = 2.8 / 1000  # Throat area in meters² (converted from mm²)
+r_c = math.sqrt(2) * d_star  # Radius of curvature in meters
+print(f"Radius of curvature (r_c): {r_c:.6f} meters")
+
+A_star = 6.16 / 1000  # Throat area in meters² (converted from mm²)
+print(f"Throat area (A_star): {A_star:.6f} square meters")
+
+# Temperature calculations
+T_w = 293.15  # Wall temperature in Kelvin
+T = 1818.47  # Throat temperature in Kelvin
+T_o = T * (1 + ((y - 1) / 2))  # Total temperature in Kelvin
+print(f"Total temperature (T_o): {T_o:.2f} Kelvin")
+
+# Viscosity calculation (in lb/in·sec)
+u = (46.6 * 10**-10) * (m_bar ** 0.5) * (T ** w)
+print(f"Viscosity of the gas (u): {u:.6e} lb/(in·sec)")
+
+# Chamber pressure
+p_c = 13.789  # Chamber pressure in bar
+print(f"Chamber pressure (p_c): {p_c:.3f} bar")
+
+# Final calculation for 'o'
+o = 1 / (((1 / 2) * (T_w / T_o) * (1 + (y - 1 / 2) * M**2) + 1 / 2) ** (0.8 - (w / 5))) * (1 + ((y - 1) / 2) * M**2) ** (w / 5)
+print(f"Final calculated value (o): {o:.6f}")
