@@ -1,6 +1,8 @@
+import math
+
 # Constants and parameters (in metric units)
-y = 1.28  # Ratio of specific heats
-C_p = 6.2966  # Specific heat at constant pressure (KJ/kg·K)
+y = 1.2659  # Ratio of specific heats
+C_p = 6.5970  # Specific heat at constant pressure (KJ/kg·K)
 C_star = 2545.3  # Characteristic velocity (m/s)
 M = 1  # Mach number
 g = 9.81  # Gravitational acceleration (m/s²)
