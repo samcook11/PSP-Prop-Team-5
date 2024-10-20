@@ -1,8 +1,8 @@
 import math
 
 # Constants and parameters in the imperial system
-y = 1.28  # Ratio of specific heats
-C_p = 1.50757  # Specific heat at constant pressure (BTU/(lb·°R))
+y = 1.2659  # Ratio of specific heats
+C_p = 1.5757  # Specific heat at constant pressure (BTU/(lb·°R))
 C_star = 8347.31  # Characteristic velocity (ft/s)
 M = 1  # Mach number
 g = 32.174  # Gravitational acceleration (ft/s²)
@@ -11,22 +11,19 @@ g = 32.174  # Gravitational acceleration (ft/s²)
 P_r = (4 * y) / ((9 * y) - 5)
 print(f"Prandtl number (calculated): {P_r}")
 
-P_r_fixed = 0.7852760736196319  # Fixed Prandtl number value
-print(f"Prandtl number (fixed value): {P_r_fixed}")
-
-m_bar = 5.33  # Molecular weight (g/mol)
+m_bar = 14  # Molecular weight (g/mol)
 w = 0.6  # Viscosity exponent
 
-# Convert throat area from mm² to inches²
-d_star = (2.8 / 1000) * 0.0393701  # Throat area in inches²
+d_star = (2.8 /25.4)  # Throat Diameter mm to in
+print(d_star)
 r_c = math.sqrt(2) * d_star  # Radius of curvature in inches
 print(f"Radius of curvature (r_c): {r_c:.6f} inches")
 
-A_star = (6.16 / 1000) * 0.0393701  # Throat area in inches²
+A_star = (6.2/645.2)  # Throat area in mm^2 to inches²
 print(f"Throat area (A_star): {A_star:.6f} square inches")
 
 # Convert temperatures from Kelvin to Rankine
-T_w = 293.15 * 1.8  # Wall temperature in Rankine
+T_w = 273.15 * 1.8  # Wall temperature in Rankine (Outside temp)
 T = 1818.47 * 1.8  # Throat temperature in Rankine
 T_o = T * (1 + ((y - 1) / 2))  # Total temperature in Rankine
 print(f"Total temperature (T_o): {T_o:.2f} Rankine")
@@ -41,15 +38,15 @@ print(f"Chamber pressure (p_c): {p_c:.2f} psi")
 
 # Final calculation of `o`
 o = 1 / (
-    ((1 / 2) * (T_w / T_o) * (1 + (y - 1 / 2) * M ** 2) + 1 / 2) ** (0.8 - (w / 5)) *
-    (1 + ((y - 1) / 2) * M ** 2) ** (w / 5)
+    (((1 / 2) * (T_w / T_o) * (1 + ((y - 1)/ 2) * M ** 2) + (1 / 2)) ** (0.8 - (w / 5))) *
+    ((1 + ((y - 1) / 2) * M ** 2) ** (w / 5))
 )
 print(f"Final calculated value (o): {o:.6f}")
 
 # Heat transfer coefficient h_g calculation (in imperial units)
 h_g_imperial = (
     (0.026 / d_star ** 0.2) *
-    (u ** 0.2 * C_p / P_r_fixed ** 0.6) *
+    (u ** 0.2 * C_p / P_r ** 0.6) *
     (p_c * g / C_star) ** 0.8 *
     (d_star / r_c) ** 0.1 *
     (1 ** 0.9) * o
@@ -57,5 +54,5 @@ h_g_imperial = (
 print(f"Heat transfer coefficient (h_g in imperial): {h_g_imperial:.6f} Btu/(in²·sec·°F)")
 
 # Convert h_g to metric units
-h_g_metric = h_g_imperial * 0.1761105  # Conversion factor from Btu/(in²·sec·°F) to W/(m²·K)
+h_g_metric = h_g_imperial * 908699.3971  # Conversion factor from Btu/(in²·sec·°F) to W/(m²·K)
 print(f"Heat transfer coefficient (h_g in metric): {h_g_metric:.6f} W/(m²·K)")
